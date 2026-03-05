@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Teko", sans-serif;
+  --font-body: "Inter", sans-serif;
+  
+  --color-primary: #FF000D;
+  --color-background-dark: #09090b;
+  --color-surface-dark: #18181b;
+  --color-border-dark: #27272a;
+  --color-text-muted: #a1a1aa;
+}
+
+@layer base {
+  body {
+    @apply bg-background-dark text-white font-body antialiased selection:bg-primary selection:text-white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display uppercase tracking-tight;
+  }
+}
+
+@layer utilities {
+  .chrome-text {
+    background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+
+  .chrome-border {
+    position: relative;
+  }
+
+  .chrome-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 40%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.15) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .liquid-glass {
+    @apply relative overflow-hidden backdrop-blur-md bg-white/5 border border-white/10 transition-all duration-500;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+  }
+
+  .liquid-glass::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full;
+    transition: transform 0.8s ease-in-out;
+  }
+
+  .liquid-glass:hover::before {
+    @apply translate-x-full;
+  }
+
+  .liquid-glass:hover {
+    @apply bg-white/15 border-white/30 shadow-[0_0_30px_rgba(255,255,255,0.1)];
+  }
+}
